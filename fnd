@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+# fnd is a search tool based on GREP created by Chef 14.04.2026
+
+
+
+#functions
+
+#how to use
+usage() {
+	printf "[USAGE] fnd \"pattern1|pattern2\" path/to/file \n"
+}
+
+# info preset
+info() {
+	printf "[INFO] %s\n" "$1"
+}
+
+# error preset
+error() {
+	printf "[ERROR] %s\n" "$1" >&2
+}
+
+
+
+#arguments
+pattern="$1"
+target="$2"
+
+
+
+#start
+#arguments check
+info "arguments check..."
+sleep 0.3
+	if [ -z "$pattern" ]; then
+		error "no pattern input"
+		usage
+		exit 1
+	fi
+info "arguments exist"
+sleep 0.3
+
+
+
+#file check
+info "file check..."
+sleep 0.3
+	if [ ! -f "$target" ]; then
+		error "file \"$target\" not found"
+		usage
+		exit 1
+	fi
+info "file exists"
+sleep 0.3
+
+
+
+#grep + result check
+info "Search in progress..."
+echo ""
+sleep 0.3
+	if grep -E --color=auto "$pattern" "$target"; then
+		echo ""
+		info "Success & exit"
+		sleep 0.3
+		exit 0
+	else
+		error "pattern \"$pattern\" not found in \"$target\""
+		sleep 0.3
+		info "Fail & exit"
+		exit 1
+	fi

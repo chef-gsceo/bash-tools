@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# fnd is a search tool based on GREP created by Chef 14.04.2026
+# fnd is a search tool based on GREP [debug mode]
 
 
 
@@ -32,42 +32,39 @@ target="$2"
 #start
 #arguments check
 info "arguments check..."
-sleep 0.3
 	if [ -z "$pattern" ]; then
 		error "no pattern input"
 		usage
+		printf " \n"
 		exit 1
 	fi
 info "arguments exist"
-sleep 0.3
 
 
 
 #file check
 info "file check..."
-sleep 0.3
 	if [ ! -f "$target" ]; then
 		error "file \"$target\" not found"
 		usage
+		printf " \n"
 		exit 1
 	fi
 info "file exists"
-sleep 0.3
 
 
 
 #grep + result check
 info "Search in progress..."
-echo ""
-sleep 0.3
-	if grep -E --color=auto "$pattern" "$target"; then
-		echo ""
+printf " \n"
+	if grep -E -i --color=auto "$pattern" "$target"; then
+		printf " \n"
 		info "Success & exit"
-		sleep 0.3
+		printf " \n"
 		exit 0
 	else
 		error "pattern \"$pattern\" not found in \"$target\""
-		sleep 0.3
 		info "Fail & exit"
+		printf " \n"
 		exit 1
 	fi

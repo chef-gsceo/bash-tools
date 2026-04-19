@@ -27,6 +27,10 @@ Features:
 
 Wrapper around grep with additional checks.
 
+### ff
+
+debug version of fnd
+
 
 ## Notes
 

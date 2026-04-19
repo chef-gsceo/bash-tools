@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+#Utility for remote management (WOL, SSH, RSYNC)
+
+IP="XXX.XXX.X.XXX"	# server ip
+MAC="XX:XX:XX:XX:XX:XX" # server mac
+SSH_NAME="XXX" 		# ssh alias for your server
+HOSTNAME="XXX"		# custom host name
+
+
+# userspace
+
+info() {
+
+        printf "[INFO] %s\n" "$1"
+}
+
+error() {
+
+        printf "[ERROR] %s\n" "$1" >&2
+}
+
+usage() {
+
+	printf "[USAGE]:\n"
+	printf "\"pc init\" FOR wake up\n"
+	printf "\"pc sshinit\" FOR wake up + ssh\n"
+	printf "\"pc pull path/on/host path/on/client\" FOR rsync\n"
+	printf "\"pc\" FOR ssh\n"
+}
+
+
+# COMMANDS
+
+cmd_init() {
+
+	wake
+}
+
+cmd_sshinit() {
+
+	wake
+	ssh_connect
+}
+
+cmd_pull() {
+
+	if [ $# -lt 2 ]; then
+		error "not enough arguments"
+		usage
+		exit 1
+	fi
+
+        local src="$1"
+        local dst="$2"
+
+	info "Starting RSYNC"
+	rsync -avz --progress "$SSH_NAME":"$src" "$dst"
+
+}
+
+cmd_sshdefault() {
+	ssh_connect
+}
+
+
+# shared
+
+ping_wait() {
+        printf "\r[WAIT] Initialisation ...."
+                while ! ping -c 1 "$IP" >/dev/null 2>&1; do
+                printf "\r\033[K[WAIT] Initialisation ."
+                sleep 0.3
+
+                printf "\r\033[K[WAIT] Initialisation .."
+                sleep 0.3
+
+                printf "\r\033[K[WAIT] Initialisation ..."
+                sleep 0.3
+
+                printf "\r\033[K[WAIT] Initialisation ...."
+                sleep 0.3
+
+                done
+}
+
+wake() {
+        wakeonlan "$MAC" >/dev/null 2>&1
+        info "Sending magic packet to ${HOSTNAME}..."
+        sleep 1
+        info "Waking up ${HOSTNAME}..."
+	ping_wait
+        sleep 0.1
+        info "${HOSTNAME} is online"
+}
+
+ssh_connect() {
+	info "Connecting to ${HOSTNAME}..."
+	ssh "$SSH_NAME"
+}
+
+
+#main
+case "${1:-}" in
+  init)
+    cmd_init
+    ;;
+  sshinit)
+    cmd_sshinit
+    ;;
+  pull)
+    shift
+    cmd_pull "$@"
+    ;;
+  "")
+    cmd_sshdefault
+    ;;
+  *)
+    error "unknown command"
+    usage
+    exit 1
+    ;;
+esac
+

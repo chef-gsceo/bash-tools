@@ -1,5 +1,3 @@
-##bash-scripts
-
 My CLI Utilities for Linux
 
 
@@ -16,7 +14,7 @@ export PATH="$HOME/bash-scripts/bin:$PATH"
 
 ## Utilities
 
-### pc
+### pcctl
 
 Remote PC management tool.
 

@@ -21,11 +21,11 @@ Remote PC management tool.
 Features:
 - Wake-on-LAN
 - SSH connection
-- File transfer via rsync
+- RSYNC server-client
 
 ### fnd
 
-Wrapper around grep with additional checks.
+Grep wrapper with additional checks.
 
 ### ff
 
@@ -34,5 +34,4 @@ debug version of fnd
 
 ## Notes
 
-This is a personal toolkit, constantly evolving.
-Scripts are designed for Linux environments.
+Designed for Linux environments.

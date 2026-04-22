@@ -24,7 +24,7 @@ usage() {
 	printf "[USAGE]:\n"
 	printf "\"pc init\" 					-- wake up ${HOSTNAME}\n"
 	printf "\"pc sshinit\" 					-- wake up ${HOSTNAME} + ssh connection\n"
-	printf "\"pc pull path/on/${HOSTNAME} path/on/client\"  -- rsync files\n"
+	printf "\"pc pull path/on/${HOSTNAME} path/on/client\" 		-- rsync files\n"
 	printf "\"pc\" 						-- ssh connection to ${HOSTNAME}\n"
 }
 

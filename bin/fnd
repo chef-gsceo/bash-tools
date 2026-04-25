@@ -9,11 +9,6 @@ usage() {
 	printf "[USAGE] fnd \"pattern1|pattern2\" path/to/file \n"
 }
 
-# info preset
-info() {
-	printf "[INFO] %s\n" "$1"
-}
-
 # error preset
 error() {
 	printf "[ERROR] %s\n" "$1" >&2

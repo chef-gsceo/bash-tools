@@ -1,4 +1,4 @@
-My CLI Utilities for Linux
+My tools & utilities for Linux 
 
 
 ## Installation
@@ -23,14 +23,19 @@ Features:
 - SSH connection
 - RSYNC server-client
 
+You need to set your own values for the variables according to your system settings for correct work
+
 ### fnd
 
 Grep wrapper with additional checks.
 
 ### ff
 
-debug version of fnd
+Debug version of fnd
 
+### Monitor
+
+Tiny Uptime & Sensors wrapper
 
 ## Notes
 

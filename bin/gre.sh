@@ -12,7 +12,7 @@ error() {
 
 
 pattern="$1"
-target="$2"
+shift
 
 
 if [ -z "$pattern" ]; then
@@ -23,19 +23,25 @@ if [ -z "$pattern" ]; then
 fi
 
 
-if [ ! -f "$target" ]; then
-	error "file \"$target\" not found"
-	usage
-	printf " \n"
-	exit 1
+if [ "$#" -eq 0 ]; then
+    error "no target files input"
+    usage
+    printf "\n"
+    exit 1
 fi
 
+for target in "$@"; do
+    if [ ! -f "$target" ]; then
+        error "file \"$target\" not found"
+        exit 1
+    fi
+done
 
-if grep -E -i -C 10 --color=auto "$pattern" "$target"; then
+
+if grep -i -H -C 10 --color=always "$pattern" "$@" | less -R; then
 	printf " \n"
-	exit 0
 else
-	error "pattern \"$pattern\" not found in \"$target\""
+	error "pattern \"$pattern\" not found in target files"
 	printf " \n"
 	exit 1
 fi

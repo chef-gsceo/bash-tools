@@ -38,7 +38,7 @@ for target in "$@"; do
 done
 
 
-if grep -i -H -C 10 --color=always "$pattern" "$@" | less -R; then
+if grep -i -E -H -C 10 --color=always "$pattern" "$@" | less -R; then
 	printf " \n"
 else
 	error "pattern \"$pattern\" not found in target files"

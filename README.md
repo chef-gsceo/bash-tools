@@ -5,7 +5,7 @@ My tools & utilities for Linux
 
 Clone the repo:
 
-git clone https://github.com/chef-gsceo/bash-scripts.git
+git clone https://github.com/chef-gsceo/bash-tools.git
 
 Add to PATH:
 

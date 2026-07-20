@@ -1,1 +1,3 @@
 bin/nettool.sh
+bin/lanctl
+bin/auditor.sh
